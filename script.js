@@ -23,12 +23,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const soilMoisture = parseFloat(data.field2) || 0;
         const temperature = parseFloat(data.field3) || 0;
         const humidity = parseFloat(data.field4) || 0;
-        const flameDetected = parseInt(data.field6) === 0;
-        
-        // If fire is already detected by the system (field7), it's critical risk
+        const flameDetected = parseInt(data.field6);
+        console.log("Flame:", flameDetected);
         
         // If flame is detected, it's high risk
-        if (flameDetected) {
+        if (!flameDetected) {
             return {
                 level: "high-risk",
                 message: "HIGH - Flame Detected"
@@ -90,8 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('humidity').textContent = `${parseFloat(data.field4).toFixed(1)}%`;
             
             // Update flame detection
-            const flameValue = parseFloat(data.field6);
-            document.getElementById('flame').textContent = flameValue === 1 ? 'Detected' : 'Not Detected';
+            const flameValue = parseInt(data.field6);
+            document.getElementById('flame').textContent = !flameValue === 1 ? 'Detected' : 'Not Detected';
             
             // Calculate fire risk
             const risk = calculateFireRisk(data);
@@ -108,9 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
             fireRiskElement.textContent = risk.message;
             
             // Show fire alert if fire is detected
-            const fireStatus = parseInt(data.field7);
             const fireAlert = document.getElementById('fireAlert');
-            if (fireStatus === 1) {
+            if (risk.level === "high-risk") {
                 fireAlert.style.display = 'flex';
             } else {
                 fireAlert.style.display = 'none';
@@ -122,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('coordinates').textContent = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
             
             // Update map
-            updateMap(latitude, longitude, risk.level === "critical-risk");
+            updateMap(latitude, longitude, risk.level === "high-risk");
             
             console.log("Data updated successfully:", data);
         } catch (error) {
