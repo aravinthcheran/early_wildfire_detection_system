@@ -24,15 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const temperature = parseFloat(data.field3) || 0;
         const humidity = parseFloat(data.field4) || 0;
         const flameDetected = parseInt(data.field6) === 0;
-        const fireDetected = parseInt(data.field7) === 1;
         
         // If fire is already detected by the system (field7), it's critical risk
-        if (fireDetected) {
-            return {
-                level: "critical-risk",
-                message: "CRITICAL - Fire Detected"
-            };
-        }
         
         // If flame is detected, it's high risk
         if (flameDetected) {
