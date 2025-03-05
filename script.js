@@ -89,8 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('humidity').textContent = `${parseFloat(data.field4).toFixed(1)}%`;
             
             // Update flame detection
-            const flameValue = parseInt(data.field6);
-            document.getElementById('flame').textContent = !flameValue === 1 ? 'Detected' : 'Not Detected';
+            // const flameValue = parseInt(data.field6);
+            // document.getElementById('flame').textContent = !flameValue === 1 ? 'Detected' : 'Not Detected';
             
             // Calculate fire risk
             const risk = calculateFireRisk(data);
