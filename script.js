@@ -38,9 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let riskScore = 0;
         
         // Gas level factor (higher gas = higher risk)
-        if (gas > 100) riskScore += 3;
-        else if (gas > 70) riskScore += 2;
+        if (gas > 500) riskScore += 5;
+        else if (gas > 100) riskScore += 2;
         else if (gas > 50) riskScore += 1;
+        else if (gas < 10) riskScore -= 1;
         
         // Soil moisture factor (lower moisture = higher risk)
         if (soilMoisture < 500) riskScore += 3;
@@ -61,17 +62,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (riskScore >= 8) {
             return {
                 level: "high-risk",
-                message: "HIGH - Multiple Risk Factors"
+                message: "HIGH RISK"
             };
-        } else if (riskScore >= 5) {
+        } else if (riskScore >= 4) {
             return {
                 level: "moderate-risk",
-                message: "MODERATE - Several Risk Factors"
+                message: "MODERATE RISK"
             };
         } else {
             return {
                 level: "low-risk",
-                message: "LOW - Few Risk Factors"
+                message: "LOW"
             };
         }
     }
