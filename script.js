@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let marker = null;
     let refreshInterval = 5; // seconds
     let refreshTimer;
-    
+
     // Function to format date
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -38,10 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let riskScore = 0;
         
         // Gas level factor (higher gas = higher risk)
-        if (gas > 500) riskScore += 5;
-        else if (gas > 100) riskScore += 2;
+        if (gas > 100) riskScore += 3;
+        else if (gas > 70) riskScore += 2;
         else if (gas > 50) riskScore += 1;
-        else if (gas < 10) riskScore -= 1;
         
         // Soil moisture factor (lower moisture = higher risk)
         if (soilMoisture < 500) riskScore += 3;
@@ -58,13 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (humidity < 30) riskScore += 2;
         else if (humidity < 40) riskScore += 1;
         
-        // Determine risk level based on score
-        if (riskScore >= 8) {
+        // 🔥 Adjusted risk level thresholds
+        if (riskScore >= 7) {
             return {
                 level: "high-risk",
                 message: "HIGH RISK"
             };
-        } else if (riskScore >= 4) {
+        } else if (riskScore >= 6) {
             return {
                 level: "moderate-risk",
                 message: "MODERATE RISK"
@@ -72,10 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             return {
                 level: "low-risk",
-                message: "LOW"
+                message: "LOW RISK"
             };
         }
     }
+    
     
     // Function to update UI with data
     function updateUI(data) {
