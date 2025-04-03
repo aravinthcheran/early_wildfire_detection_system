@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let marker = null;
     let refreshInterval = 5; // seconds
     let refreshTimer;
-    
+
     // Function to format date
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let riskScore = 0;
         
         // Gas level factor (higher gas = higher risk)
-        if (gas > 100) riskScore += 3;
-        else if (gas > 70) riskScore += 2;
+        if (gas > 300) riskScore += 5;
+        else if (gas > 100) riskScore += 2;
         else if (gas > 50) riskScore += 1;
         
         // Soil moisture factor (lower moisture = higher risk)
@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (soilMoisture < 900) riskScore += 1;
         
         // Temperature factor (higher temp = higher risk)
-        if (temperature > 40) riskScore += 3;
+        if (temperature > 50) riskScore += 4;
+        else if (temperature > 40) riskScore += 3;
         else if (temperature > 35) riskScore += 2;
         else if (temperature > 30) riskScore += 1;
         
@@ -57,24 +58,25 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (humidity < 30) riskScore += 2;
         else if (humidity < 40) riskScore += 1;
         
-        // Determine risk level based on score
-        if (riskScore >= 8) {
+        // 🔥 Adjusted risk level thresholds
+        if (riskScore >= 9) {
             return {
                 level: "high-risk",
-                message: "HIGH - Multiple Risk Factors"
+                message: "HIGH RISK"
             };
         } else if (riskScore >= 5) {
             return {
                 level: "moderate-risk",
-                message: "MODERATE - Several Risk Factors"
+                message: "MODERATE RISK"
             };
         } else {
             return {
                 level: "low-risk",
-                message: "LOW - Few Risk Factors"
+                message: "LOW RISK"
             };
         }
     }
+    
     
     // Function to update UI with data
     function updateUI(data) {
